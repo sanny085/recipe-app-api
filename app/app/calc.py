@@ -11,4 +11,3 @@ def add(a, b):
 def sub(a, b):
     """ Subtracting two numbers """
     return a - b
-
