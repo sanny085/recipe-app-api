@@ -5,7 +5,7 @@ Cal Functions
 
 def add(a, b):
     """ Adding two numbers """
-    return a + b 
+    return a + b
 
 
 def sub(a, b):
