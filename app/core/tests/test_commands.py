@@ -7,8 +7,9 @@ from django.db.utils import OperationalError
 from django.test import SimpleTestCase
 
 
-@patch('core.management.commands.wait_for_db.Command.check') 
-# There's a default check method inside the wait_for_db (Commands class) inside BaseCommand
+@patch('core.management.commands.wait_for_db.Command.check')
+# There's a default check method
+# inside the wait_for_db (Commands class) inside BaseCommand
 class CommandTests(SimpleTestCase):
     """Test commands."""
 
@@ -27,5 +28,6 @@ class CommandTests(SimpleTestCase):
             [OperationalError] * 3 + [True]
 
         call_command('wait_for_db')
+
         self.assertEqual(patched_check.call_count, 6)
         patched_check.assert_called_with(databases=['default'])
