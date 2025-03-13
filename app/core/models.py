@@ -1,6 +1,7 @@
 """
 Database models.
 """
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser,
@@ -40,4 +41,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     
     USERNAME_FIELD = 'email'
- 
+
+
+class Recipe(models.Model):
+    """Recipe object"""
+    # user(ForeignKey) will map with (each Recipe) model, 
+    # if any user deleted then all the Recipe related to that user will auto delete from DB
+    user = models.ForeignKey( 
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    title = models.CharField(max_length=255)
+    description = models.TextField(blank=True) # this will accept more content
+    time_minutes = models.IntegerField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    link = models.CharField(max_length=255, blank=True)
+
+    # this model will return default ( title of Recipe ) rather than default (id field) ( in django admin )
+    def __str__(self):
+        return self.title 
